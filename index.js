@@ -4,8 +4,6 @@ const app = new express()
 app.use(express.json())
 const db = new sqlite3.Database("./data.sqlite3")
 
-db.run("CREATE TABLE IF NOT EXISTS chiamate (ip TEXT, n INT)")
-
 app.get("/", (req, res) => {
   const ip = req.ip
   db.get("SELECT * FROM chiamate WHERE ip = ? ", ip, (err, row) => {
