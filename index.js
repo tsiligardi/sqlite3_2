@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
     if (row) {
       res.status(200).json({ n: row.n + 1 })
       db.run("UPDATE chiamate SET n = ? WHERE ip = ? ", row.n + 1, ip)
+
     } else {
       db.run("INSERT INTO chiamate VALUES (?,?)", ip, 1)
       res.status(200).json({ n: 1 })
