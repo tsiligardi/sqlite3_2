@@ -13,12 +13,16 @@ app.get("/", (req, res) => {
     }
 
     if (row) {
-      res.status(200).json({ n: row.n + 1 })
-      db.run("UPDATE chiamate SET n = ? WHERE ip = ? ", row.n + 1, ip)
+      res.status(200).json({
+        ip: row.ip,
+        n: row.n + 1 })
+      db.run("UPDATE chiamate SET n = ? WHERE ip = ? ", [row.n + 1, ip])
 
     } else {
-      db.run("INSERT INTO chiamate VALUES (?,?)", ip, 1)
-      res.status(200).json({ n: 1 })
+      db.run("INSERT INTO chiamate VALUES (?,?)", [ip, 1])
+      res.status(200).json({
+        ip,
+        n: 1 })
     }
   })
 
